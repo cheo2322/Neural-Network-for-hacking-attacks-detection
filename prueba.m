@@ -1,7 +1,7 @@
 %load('NData.mat');
 load('NewData.mat');
 data = NData(:,1:end-1)';
-autoenc = trainAutoencoder(data, 19, 'MaxEpochs', 1200, 'L2WeightRegularization',0.00001);
+autoenc = trainAutoencoder(data, 19, 'MaxEpochs', 6000, 'L2WeightRegularization',0.00001);
 Enc = encode(autoenc, data);
 %Dec = decode(autoenc, Enc);
 Data = predict(autoenc, data);

@@ -1,3 +1,4 @@
+tic
 %% Data loading 
 load('NewData.mat');
 %load('NData');
@@ -9,8 +10,8 @@ data = [Enc' NData(:,end)];
 
 trSetProportion = 0.7;
 valSetProportion = 0.7;
-
 idx = randperm(size(data, 1));
+
 data = data(idx,:);
 Data = data(1:floor(trSetProportion*end),:);
 
@@ -24,7 +25,7 @@ nLayers = 3;
 nInputs = size(data,2)-1;
 Layers = [nInputs 11 1];
 beta = 1;
-maxEpoc = 300;
+maxEpoc = 25000;
 errorHistory = [];
 validErrHistory=[];
 
@@ -65,6 +66,9 @@ title('Training/validation errors by epochs')
 %% Network validation
 [~, testWeightInd] = min(validErrHistory); 
 testWeights = weightsHistorical{1,testWeightInd};
+%load('LastTest.mat');
 testError = networkError(testSet, testWeights, nLayers, beta);
+%testError = networkError([Encoder' NData(:,end)], testWeights, nLayers, beta);
 disp('Network error over test set ')
 disp(testError)
+toc
